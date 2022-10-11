@@ -18,8 +18,9 @@ describe("Intern", () => {
           
         const name = 'someName';
         const obj = new Intern('someName','someID','someEmail','someSchool');
+        const getName = obj.getName();
     
-          expect(obj.name).toEqual(name);
+        expect(getName).toEqual(name);
         
         })
       });
@@ -29,8 +30,9 @@ describe("Intern", () => {
           
             const id = 'someID';
             const obj = new Intern('someName','someID','someEmail','someSchool');
+            const getId = obj.getID();
         
-              expect(obj.id).toEqual(id);
+            expect(getId).toEqual(id);
             
             })
       });
@@ -40,8 +42,9 @@ describe("Intern", () => {
           
             const email = 'someEmail';
             const obj = new Intern('someName','someID','someEmail','someSchool');
+            const getEmail = obj.getEmail();
         
-              expect(obj.email).toEqual(email);
+            expect(getEmail).toEqual(email);
             
             })
       });
@@ -51,10 +54,24 @@ describe("Intern", () => {
           
             const school = 'someSchool';
             const obj = new Intern('someName','someID','someEmail','someSchool');
+            const getSchool = obj.getSchool();
         
-              expect(obj.school).toEqual(school);
+              expect(getSchool).toEqual(school);
             
             })
       });
+
+      describe("getRole", () => {
+        it("should return an object containing the role from the original class", () => {
+          
+            const role = 'Intern';
+            const obj = new Intern('someName','someID','someEmail','someSchool');
+            const getRole = obj.getRole();
+        
+            expect(getRole).toEqual(role);
+            
+            })
+      });
+
 
 });

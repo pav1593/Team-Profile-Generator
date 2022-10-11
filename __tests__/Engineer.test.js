@@ -18,8 +18,9 @@ describe("Engineer", () => {
           
         const name = 'someName';
         const obj = new Engineer('someName','someID','someEmail','someGitHub');
+        const getName = obj.getName();
     
-          expect(obj.name).toEqual(name);
+        expect(getName).toEqual(name);
         
         })
       });
@@ -29,8 +30,9 @@ describe("Engineer", () => {
           
             const id = 'someID';
             const obj = new Engineer('someName','someID','someEmail','someGitHub');
+            const getId = obj.getID();
         
-              expect(obj.id).toEqual(id);
+            expect(getId).toEqual(id);
             
             })
       });
@@ -40,8 +42,9 @@ describe("Engineer", () => {
           
             const email = 'someEmail';
             const obj = new Engineer('someName','someID','someEmail','someGitHub');
+            const getEmail = obj.getEmail();
         
-              expect(obj.email).toEqual(email);
+            expect(getEmail).toEqual(email);
             
             })
       });
@@ -51,8 +54,21 @@ describe("Engineer", () => {
           
             const github = 'someGitHub';
             const obj = new Engineer('someName','someID','someEmail','someGitHub');
+            const getGithub = obj.getGitHub();
+
+              expect(getGithub).toEqual(github);
+            
+            })
+      });
+
+      describe("getRole", () => {
+        it("should return an object containing the role from the original class", () => {
+          
+            const role = 'Engineer';
+            const obj = new Engineer('someName','someID','someEmail','someGitHub');
+            const getRole = obj.getRole();
         
-              expect(obj.github).toEqual(github);
+            expect(getRole).toEqual(role);
             
             })
       });

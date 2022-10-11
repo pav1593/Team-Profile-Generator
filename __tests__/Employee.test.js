@@ -15,10 +15,11 @@ describe("Employee", () => {
     describe("getName", () => {
         it("should return an object containing a name, equal to the name 'John' with which it was initialized", () => {
           
-        const name = 'John';
-        const obj = new Employee('John','someID','someEmail');
+        const name = 'someName';
+        const obj = new Employee('someName','someID','someEmail');
+        const getName = obj.getName();
     
-          expect(obj.name).toEqual(name);
+          expect(getName).toEqual(name);
         
         })
       });
@@ -28,8 +29,9 @@ describe("Employee", () => {
           
             const id = 'someID';
             const obj = new Employee('someName','someID','someEmail');
+            const getId = obj.getID();
         
-              expect(obj.id).toEqual(id);
+            expect(getId).toEqual(id);
             
             })
       });
@@ -39,8 +41,21 @@ describe("Employee", () => {
           
             const email = 'someEmail';
             const obj = new Employee('someName','someID','someEmail');
+            const getEmail = obj.getEmail();
         
-              expect(obj.email).toEqual(email);
+            expect(getEmail).toEqual(email);
+            
+            })
+      });
+
+      describe("getRole", () => {
+        it("should return an object containing the role from the original class", () => {
+          
+            const role = 'Employee';
+            const obj = new Employee('someName','someID','someEmail');
+            const getRole = obj.getRole();
+        
+            expect(getRole).toEqual(role);
             
             })
       });
