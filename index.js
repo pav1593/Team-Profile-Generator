@@ -1,24 +1,4 @@
-// ## Acceptance Criteria
-
-// ```md
-// GIVEN a command-line application that accepts user input
-// WHEN I am prompted for my team members and their information
-// THEN an HTML file is generated that displays a nicely formatted team roster based on user input
-// WHEN I click on an email address in the HTML
-// THEN my default email program opens and populates the TO field of the email with the address
-// WHEN I click on the GitHub username
-// THEN that GitHub profile opens in a new tab
-// WHEN I start the application
-// THEN I am prompted to enter the team manager’s name, employee ID, email address, and office number
-// WHEN I enter the team manager’s name, employee ID, email address, and office number
-// THEN I am presented with a menu with the option to add an engineer or an intern or to finish building my team
-// WHEN I select the engineer option
-// THEN I am prompted to enter the engineer’s name, ID, email, and GitHub username, and I am taken back to the menu
-// WHEN I select the intern option
-// THEN I am prompted to enter the intern’s name, ID, email, and school, and I am taken back to the menu
-// WHEN I decide to finish building my team
-// THEN I exit the application, and the HTML is generated
-// ```
+// import required modules
 
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
@@ -26,13 +6,17 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const fs = require('fs');
 
+// set path and filename of the output HTML file
+
 const filename="./dist/teamprofile.html";
+
+// initialize arrays to store team member objects
 
 const managers = []; // array for managers
 const engineers = []; //array for engineers
 const interns = []; //array for interns
 
-
+// setup Manager questions
 const ManagerQuestions = [      
     {
       type: 'input',
@@ -79,6 +63,8 @@ const ManagerQuestions = [
         },
       }
   ];
+
+  // setup Engineer questions
 
   const EngineerQuestions = [      
     {
@@ -127,6 +113,7 @@ const ManagerQuestions = [
       }
   ];
 
+  // setup Intern questions
   const InternQuestions = [      
     {
       type: 'input',
@@ -174,6 +161,7 @@ const ManagerQuestions = [
       }
   ];
 
+// called when adding an Engineer that prompts questions, creates a new object and adds it to the engineers array then calls the quit() function
 function addEngineer() {
     console.log("\n-----Add an Engineer-----\n");
     inquirer.prompt(EngineerQuestions).then((answers)=>{
@@ -184,6 +172,7 @@ function addEngineer() {
     });
 }
 
+// called when adding an Intern that prompts questions, creates a new object and adds it to the interns array then calls the quit() function
 function addIntern() {
     console.log("\n-----Add an Intern-----\n");
     inquirer.prompt(InternQuestions).then((answers)=>{
@@ -194,6 +183,7 @@ function addIntern() {
     });
 }
 
+// funciton which prompts the user to select team member to add to the team and call appropriate function based on type
 function addToTeam() {
     console.log("\n-----Add Team Members-----\n");
     inquirer.prompt([{
@@ -211,6 +201,7 @@ function addToTeam() {
     });
 }
 
+// functing returns a dynamically rendered HTML after dynamically populating the card information depending on team member type;
 function renderHTML() {
 
 const topHTML= `<!DOCTYPE html>
@@ -288,13 +279,14 @@ managers.forEach((item)=> {
 
 }
 
+// function prompts the user on whether they want to add more team members or quit the program
 function quit() {
     console.log("\n\n");
     inquirer.prompt([
         {
             type: 'confirm',
             name: 'askAgain',
-            message: 'Want to add another team member (hit enter for YES)?',
+            message: 'Want to add another team member, or do you want to quit the program (hit enter for YES)?',
             default: true,
         }
     ]).then((answers)=>{
@@ -302,6 +294,9 @@ function quit() {
             if (answers.askAgain) {
                 addToTeam();
             } else {
+
+                // write the rendered HTML file 
+
                 fs.writeFile(filename, renderHTML(), (error) =>
                 error 
                 ? console.error(error) 
@@ -312,15 +307,27 @@ function quit() {
     });
 }
 
+// initialize function to start the program
 function init() {
 
-inquirer.prompt(ManagerQuestions).then((answers)=>{
-        
-    // TODO - init manager object and add to array
-    const newManager = new Manager(answers.managerName,answers.managerID,answers.managerEmail,answers.officeNumber);
-    managers.push(newManager);
-    addToTeam();
-});
+      // display intro and Use instructions for the user
+      console.log("\n\n*******TEAM PROFILE MANAGER**********\n\n");
+      console.log("## How to Use\n");
+      console.log("Please note that a team must contain at least one manager and one other member.\n");
+      console.log("1. Enter the team manager information.\n");
+      console.log("2. Select an Engineer or an Intern to add to the team and enter their information.\n");
+      console.log("3. When prompted select Yes to keep adding team members, or No to exit the program.\n");
+      console.log("\n-----Add a Team Manager-----\n");
+
+      // initial questions to setup Team Manager profile, create the object and push to Manager array.
+      inquirer.prompt(ManagerQuestions).then((answers)=>{
+              
+          // init manager object and add to array
+          const newManager = new Manager(answers.managerName,answers.managerID,answers.managerEmail,answers.officeNumber);
+          managers.push(newManager);
+
+          addToTeam();
+      });
 
 }
 
