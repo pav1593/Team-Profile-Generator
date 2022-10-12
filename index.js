@@ -20,3 +20,220 @@
 // THEN I exit the application, and the HTML is generated
 // ```
 
+const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
+const inquirer = require("inquirer");
+
+const ManagerQuestions = [      
+    {
+      type: 'input',
+      message: "Enter team manager's name:",
+      name: 'managerName',
+      validate(text) {
+        if (text==="") {
+          return `Team must have a manager.`;
+        }
+        return true;
+      },
+    },
+    {
+        type: 'input',
+        message: "Enter team manager's ID:",
+        name: 'managerID',
+        validate(text) {
+          if (text==="") {
+            return `Manager must have an ID.`;
+          }
+          return true;
+        },
+      },
+      {
+        type: 'input',
+        message: "Enter team manager's email address:",
+        name: 'managerEmail',
+        validate(text) {
+          if (text==="") {
+            return `Manager must have an email address.`;
+          }
+          return true;
+        },
+      },
+      {
+        type: 'input',
+        message: "Enter team manager's office number:",
+        name: 'managerOfficeNumber',
+        validate(text) {
+          if (text==="") {
+            return `Manager must have an office number.`;
+          }
+          return true;
+        },
+      }
+  ];
+
+  const EngineerQuestions = [      
+    {
+      type: 'input',
+      message: "Enter engineers's name:",
+      name: 'engineerName',
+      validate(text) {
+        if (text==="") {
+          return `Engineer must have a name.`;
+        }
+        return true;
+      },
+    },
+    {
+        type: 'input',
+        message: "Enter engineer's ID:",
+        name: 'engineerID',
+        validate(text) {
+          if (text==="") {
+            return `Engineer must have an ID.`;
+          }
+          return true;
+        },
+      },
+      {
+        type: 'input',
+        message: "Enter engineer's email address:",
+        name: 'engineerEmail',
+        validate(text) {
+          if (text==="") {
+            return `Engineer must have an email address.`;
+          }
+          return true;
+        },
+      },
+      {
+        type: 'input',
+        message: "Enter engineer's Github username:",
+        name: 'engineerGithub',
+        validate(text) {
+          if (text==="") {
+            return `Engineer must have a Github username.`;
+          }
+          return true;
+        },
+      }
+  ];
+
+  const InternQuestions = [      
+    {
+      type: 'input',
+      message: "Enter intern's name:",
+      name: 'internName',
+      validate(text) {
+        if (text==="") {
+          return `Intern must have a name.`;
+        }
+        return true;
+      },
+    },
+    {
+        type: 'input',
+        message: "Enter intern's ID:",
+        name: 'internID',
+        validate(text) {
+          if (text==="") {
+            return `Intern must have an ID.`;
+          }
+          return true;
+        },
+      },
+      {
+        type: 'input',
+        message: "Enter intern's email address:",
+        name: 'InternEmail',
+        validate(text) {
+          if (text==="") {
+            return `Intern must have an email address.`;
+          }
+          return true;
+        },
+      },
+      {
+        type: 'input',
+        message: "Enter intern's school:",
+        name: 'internSchool',
+        validate(text) {
+          if (text==="") {
+            return `Intern must have a school.`;
+          }
+          return true;
+        },
+      }
+  ];
+
+function addEngineer() {
+    console.log("\n-----Add an Engineer-----\n");
+    inquirer.prompt(EngineerQuestions).then((answers)=>{
+        console.log("\n-----Engineer Added-----\n");
+        console.log(answers);
+        quit();
+    });
+}
+
+function addIntern() {
+    console.log("\n-----Add an Intern-----\n");
+    inquirer.prompt(InternQuestions).then((answers)=>{
+        console.log("\n-----Intern Added----\n");
+        console.log(answers);
+        quit();
+    });
+}
+
+function addToTeam() {
+    console.log("\n-----Add Team Members-----\n");
+    inquirer.prompt([{
+      type: 'rawlist',
+      name: 'addTeamMember',
+      message: 'Select a team member to add:',
+      choices: ['Engineer','Intern'],
+    }]).then((answers)=>{
+        console.log(answers);
+        switch (answers.addTeamMember) {
+            case 'Engineer': addEngineer();
+                break;
+            case 'Intern': addIntern();
+                break;
+        }
+    });
+}
+
+function quit() {
+    console.log("\n\n");
+    inquirer.prompt([
+        {
+            type: 'confirm',
+            name: 'askAgain',
+            message: 'Want to add another team member (hit enter for YES)?',
+            default: true,
+        }
+    ]).then((answers)=>{
+
+            if (answers.askAgain) {
+                addToTeam();
+            } else {
+                console.log('\nExiting program!\n');
+            }
+
+
+    });
+}
+
+function init() {
+// const John = new Manager('John',1,'john@company.com',200);
+// const Sam = new Engineer('Sam',2,'sam@company.com','sam9999');
+// const Emily = new Intern('Emily',3,'emily@company.com','Mothercraft');
+
+// console.log(`${John.getRole()}: ${John.getName()}, ${John.getID()}, ${John.getEmail()}, Office: ${John.officeNumber}`);
+
+inquirer.prompt(ManagerQuestions).then((answers)=>{
+        addToTeam();
+});
+
+}
+
+init();
