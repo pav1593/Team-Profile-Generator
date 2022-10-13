@@ -98,7 +98,7 @@ All classes in __tests__/ were unit tested using Jest and have passed as shown i
 
 ### A walkthrough video:
 
-https://drive.google.com/file/d/1ty2D7WojR2iT315v8VvjHEAzz3kH6zVe/view?usp=sharing
+https://drive.google.com/file/d/1ty2D7WojR2iT315v8VvjHEAzz3kH6zVe/view
 
 ### Sample HTML file generated using your application (featured in the VIDEO):
 
